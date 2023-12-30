@@ -7,12 +7,17 @@ description = "Safe Rust bindings for libopus"
 readme = "README.md"
 license = "MIT/Apache-2.0"
 keywords = ["opus", "codec", "voice", "sound", "audio"]
-categories = ["api-bindings", "encoding", "compression",
-	"multimedia::audio", "multimedia::encoding"]
+categories = [
+	"api-bindings",
+	"encoding",
+	"compression",
+	"multimedia::audio",
+	"multimedia::encoding",
+]
 
 repository = "https://github.com/SpaceManiac/opus-rs"
 documentation = "https://docs.rs/opus/0.3.0/opus"
 
 [dependencies]
-audiopus_sys = "0.2.0"
+audiopus_sys = { version = "0.2.0", default-features = false,features = ["dynamic"]}
 libc = "0.2"
