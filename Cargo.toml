@@ -21,6 +21,6 @@ unsafe-libopus = { git="https://github.com/DCNick3/unsafe-libopus", optional = t
 cfg-if = "1.0.0"
 
 [features]
-default = ["audiopus-sys-backend"]
+default = ["unsafe-libopus-backend"]
 audiopus-sys-backend = ["audiopus_sys", "libc"]
 unsafe-libopus-backend = ["unsafe-libopus"]

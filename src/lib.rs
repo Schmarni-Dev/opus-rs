@@ -15,11 +15,9 @@
 mod backend;
 
 use std::convert::TryFrom;
-use std::ffi::CStr;
 use std::marker::PhantomData;
 
-
-use backend::{c_int, ffi, ctl};
+use backend::{c_int, ctl, ffi};
 
 // ============================================================================
 // Constants
@@ -154,7 +152,14 @@ impl ErrorCode {
 	/// Get a human-readable error string for this error code.
 	pub fn description(self) -> &'static str {
 		// should always be ASCII and non-null for any input
-		unsafe { CStr::from_ptr(ffi::opus_strerror(self as c_int)) }.to_str().unwrap()
+		#[cfg(not(feature = "unsafe-libopus-backend"))]
+		{
+			unsafe { CStr::from_ptr(ffi::opus_strerror(self as c_int)) }.to_str().unwrap()
+		}
+		#[cfg(feature = "unsafe-libopus-backend")]
+		{
+			ffi::opus_strerror(self as c_int)
+		}
 	}
 }
 
@@ -176,7 +181,14 @@ pub enum Bitrate {
 /// runtime.
 pub fn version() -> &'static str {
 	// verison string should always be ASCII
-	unsafe { CStr::from_ptr(ffi::opus_get_version_string()) }.to_str().unwrap()
+	#[cfg(predicate)]
+	{
+		unsafe { CStr::from_ptr(ffi::opus_get_version_string()) }.to_str().unwrap()
+	}
+	#[cfg(feature = "unsafe-libopus-backend")]
+	{
+		ffi::opus_get_version_string()
+	}
 }
 
 macro_rules! ffi {
