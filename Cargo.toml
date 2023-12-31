@@ -17,7 +17,7 @@ documentation = "https://docs.rs/opus/0.3.0/opus"
 [dependencies]
 audiopus_sys = { version = "0.2.0", optional = true }
 libc = { version = "0.2", optional = true }
-unsafe-libopus = { version = "0.1.0", optional = true }
+unsafe-libopus = { git="https://github.com/DCNick3/unsafe-libopus", optional = true }
 cfg-if = "1.0.0"
 
 [features]
