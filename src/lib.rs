@@ -181,7 +181,7 @@ pub enum Bitrate {
 /// runtime.
 pub fn version() -> &'static str {
 	// verison string should always be ASCII
-	#[cfg(predicate)]
+	#[cfg(feature = "audiopus-sys-backend")]
 	{
 		unsafe { CStr::from_ptr(ffi::opus_get_version_string()) }.to_str().unwrap()
 	}
